@@ -1,10 +1,10 @@
 # Spring-expert-udemy :hotsprings:
-Repositório de código referente ao curso Spring Boot Expert: JPA, RESTFull API, Security.
+Repositório de código referente ao curso Spring Boot Expert: JPA, RESTFul API, Security.
 
 Link do curso: https://www.udemy.com/course/spring-boot-expert/
 
 
-Neste curso vemos as bases do ecossistema Spring com a linguagem Java. Durante ele, construimos uma API Restfull de vendas com as seguintes Entidades:
+Neste curso vemos as bases do ecossistema Spring com a linguagem Java. Durante ele, construimos uma API Restful de vendas com as seguintes Entidades:
 
 1. Cliente
 2. Pedido
