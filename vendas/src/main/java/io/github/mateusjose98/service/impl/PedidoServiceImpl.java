@@ -12,10 +12,12 @@ import io.github.mateusjose98.domain.entity.Cliente;
 import io.github.mateusjose98.domain.entity.ItemPedido;
 import io.github.mateusjose98.domain.entity.Pedido;
 import io.github.mateusjose98.domain.entity.Produto;
+import io.github.mateusjose98.domain.enums.StatusPedido;
 import io.github.mateusjose98.domain.repository.Clientes;
 import io.github.mateusjose98.domain.repository.ItensPedido;
 import io.github.mateusjose98.domain.repository.Pedidos;
 import io.github.mateusjose98.domain.repository.Produtos;
+import io.github.mateusjose98.exception.PedidoNaoEncontradoException;
 import io.github.mateusjose98.exception.RegraNegocioException;
 import io.github.mateusjose98.rest.dto.ItensPedidoDTO;
 import io.github.mateusjose98.rest.dto.PedidoDTO;
@@ -42,6 +44,7 @@ public class PedidoServiceImpl implements PedidoService {
 		pedido.setCliente(cliente);
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setTotal(dto.getTotal());
+		pedido.setStatus(StatusPedido.REALIZADO);
 		
 		List<ItemPedido> itens = converterItens(pedido, dto.getItens());
 		repository.save(pedido);
@@ -72,6 +75,16 @@ public class PedidoServiceImpl implements PedidoService {
 	public Optional<Pedido> obterPedidoCompleto(Integer id) {
 		Optional<Pedido> pedido = repository.findByIdFetchItems(id);
 		return pedido;
+	}
+
+	@Override
+	@Transactional
+	public void atualizaStatus(Integer id, StatusPedido status) {
+		repository.findById(id).map(pedido -> {
+			pedido.setStatus(status);
+			return repository.save(pedido);
+		}).orElseThrow( () -> new PedidoNaoEncontradoException() );
+		
 	}
 
 }
