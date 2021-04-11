@@ -18,3 +18,11 @@ _"Um Cliente pode fazer vários Pedidos, este, por sua vez poderá ter vários I
 A modelagem é como descrita na imagem:
 
 ![](https://github.com/mateusjose98/spring-expert-udemy/blob/main/screenshot.png)
+
+##  Tecnologias e Recursos:
+
+ - Spring Boot, Spring Data JPA
+ - Lombok
+ - BeanValidation
+ - JWT e Spring Security
+ - Swagger
