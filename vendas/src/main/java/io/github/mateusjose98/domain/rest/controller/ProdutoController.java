@@ -2,6 +2,8 @@ package io.github.mateusjose98.domain.rest.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -56,7 +58,7 @@ public class ProdutoController {
 	//POST
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Produto save(@RequestBody Produto produto) {
+	public Produto save(@RequestBody @Valid Produto produto) {
 		Produto produtoSalvo = produtos.save(produto);
 		return produtoSalvo;
 	}
@@ -76,7 +78,7 @@ public class ProdutoController {
 	
 	//PUT
 	@PutMapping("{id}")
-	public ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Produto produto) {
+	public ResponseEntity update(@PathVariable("id") Integer id, @RequestBody @Valid Produto produto) {
 		return produtos.findById(id)
 				.map(produtoBuscado 
 						-> { produto.setId(produtoBuscado.getId());

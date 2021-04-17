@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,9 +33,10 @@ public class Cliente {
 
 
     @Column(name = "nome", length = 100)
+    @NotEmpty(message = "Campo nome obrigatorio")
     private String nome;
     
-    @Column(name = "cpf")
+    @Column(name = "cpf") @CPF(message = "Informe um CPF válido!")
     private String cpf;
 
     //um cliente pode fazer vários pedidos
