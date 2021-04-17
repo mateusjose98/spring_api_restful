@@ -17,7 +17,7 @@ _"Um Cliente pode fazer vários Pedidos, este, por sua vez poderá ter vários I
 
 A modelagem é como descrita na imagem:
 
-![](https://github.com/mateusjose98/spring-expert-udemy/blob/main/screenshot.png)
+![](https://github.com/mateusjose98/spring_api_restful/blob/main/vendas/screenshot.png)
 
 ##  Tecnologias e Recursos:
 
