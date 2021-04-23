@@ -6,8 +6,11 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
+import io.github.mateusjose98.VendasApplication;
 import io.github.mateusjose98.domain.entity.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -23,6 +26,14 @@ public class JwtService {
 	
 	@Value("${security.jwt.chave-assinatura}")
 	private String chaveAssinatura;
+	
+	public static void main(String[] args) {
+		ConfigurableApplicationContext contexto = SpringApplication.run(VendasApplication.class);
+		JwtService service = contexto.getBean(JwtService.class);
+		Usuario usuario = Usuario.builder().login("fulano").build();
+		String token = service.gerarToken(usuario);
+		System.out.println(token);
+	}
 	
 	public String gerarToken(Usuario usuario) {
 		long expString = Long.valueOf(expiracao);

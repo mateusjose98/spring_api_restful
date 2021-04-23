@@ -30,14 +30,14 @@ import io.github.mateusjose98.domain.entity.Cliente;
 import io.github.mateusjose98.domain.repository.Clientes;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
     @Autowired
     private Clientes clientes;
     
     
-    @GetMapping("/clientes/{id}")
+    @GetMapping("{id}")
     public Cliente helloCliente(@PathVariable("id")Integer id){
     		if (clientes.findById(id).isPresent()) {
     			return clientes.findById(id).get();
@@ -48,15 +48,15 @@ public class ClienteController {
     
     
     
-    @PostMapping("/clientes/save")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente save(@RequestBody @Valid Cliente cliente) {
+    public Cliente save(@RequestBody Cliente cliente) {
     	Cliente clienteSalvo = clientes.save(cliente);
     	return clienteSalvo;
     }
     
     
-    @DeleteMapping("/clientes/{id}")
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id")Integer id){
     	clientes.findById(id).map(cliente ->{
@@ -69,7 +69,7 @@ public class ClienteController {
     
     
     //atualizacao integral
-    @PutMapping("/clientes/{id}")
+    @PutMapping("{id}")
     public ResponseEntity update(@PathVariable("id")Integer id, 
     		@RequestBody Cliente cliente) {
     	
@@ -88,7 +88,7 @@ public class ClienteController {
     }
     
     
-    @GetMapping("/clientes")
+    @GetMapping
     public ResponseEntity find(Cliente filtro) {
     	ExampleMatcher matcher = ExampleMatcher.matching()
     			.withIgnoreCase()
@@ -100,37 +100,9 @@ public class ClienteController {
     
 
     
-    @RequestMapping(
-    			value = { "/teste2/{teste}", "/t/{teste}"},
-    			method = RequestMethod.GET,
-//    			consumes = {"application/json"}, //o que estou mandando no corpo, content @RequestBody
-    			produces = {"application/json"}
-    			
-    		)
-    @ResponseBody
-    public String teste(@PathVariable("teste") String teste, HttpServletRequest request) {
-	    	
-    	System.out.println(request.getRequestURI());
-	    if(request.getRequestURI() == "/api/t/{"+teste+"}") {
-	    	
-	    	return "segunda: " + teste;
-	    }else {
-	    	return "primeira: " + teste;
-	    }
-    }
 
 
-    @GetMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity getClienteByID(@PathVariable("id") Integer id)
-    {
-        Optional<Cliente> cliente =  clientes.findById(id);
 
-        if(cliente.isPresent()){
-            return ResponseEntity.ok(cliente.get());
-        }
-
-        return ResponseEntity.notFound().build();
-    }
+ 
 
 }
